@@ -1,5 +1,6 @@
 import socket
 import re
+import threading
 import sys
 
 bad_request = b'HTTP/1.1 400 Bad Request\r\n\r\n'
@@ -72,10 +73,9 @@ def length(header):
     return 0
 
 
-
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        sys.stderr.write("Málo argumentů. Použití: $python resolver.py PORT\n")
+        sys.stderr.write("Málo argumentů. Použití: $python3 resolver.py PORT\n")
         sys.exit(1)
     if sys.argv[1].isdigit() == 0:
         sys.stderr.write("Argument musí být číslo.\n")

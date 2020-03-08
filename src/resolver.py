@@ -39,13 +39,13 @@ def get(header, to_send):
                     ret = socket.gethostbyname(my_name[0])
                 except socket.error:
                     return not_found
-                to_send += bytes(my_name, "UTF-8") + b':A=' + bytes(ret, "UTF-8") + b'\r\n'
+                to_send += bytes(my_name[0], "UTF-8") + b':A=' + bytes(ret, "UTF-8") + b'\r\n'
             elif my_type[0] == "PTR" and re.findall(r"(\d+.\d+.\d+.\d+)", my_name[0]):
                 try:
                     a,b,ret = socket.gethostbyaddr(n)
                 except socket.error:
                     return not_found
-                to_send += bytes(my_name, "UTF-8") + b':PTR=' + bytes(a, "UTF-8") + b'\r\n'
+                to_send += bytes(my_name[0], "UTF-8") + b':PTR=' + bytes(a, "UTF-8") + b'\r\n'
             else:
                 return bad_request
     return to_send

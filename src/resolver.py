@@ -88,12 +88,16 @@ if __name__ == "__main__":
     PORT = int(sys.argv[1])
     BUFF_SIZE = 4096
     to_send = bad_request
-    
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)    
-    s.bind((HOST, PORT))
-    s.listen()
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)    
+        s.bind((HOST, PORT))
+        s.listen()
+    except:
+        sys.stderr.write("Port se nejspíše používá.\n")
+        sys.exit(1)
 
+    
     while 1:
         conn, addr = s.accept()
         data = conn.recv(BUFF_SIZE)
